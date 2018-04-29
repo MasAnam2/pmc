@@ -170,21 +170,21 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input min="0" name="tagihan[]" type="number" class="form-control" placeholder="Tagihan" />
+                                                    <input min="0" readonly="readonly" id="tagihan" name="tagihan[]" type="number" class="form-control" placeholder="Tagihan" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input min="0" name="ppn[]" type="number" class="form-control" placeholder="PPN" />
+                                                    <input min="0" readonly="readonly" id="ppn" name="ppn[]" type="number" class="form-control" placeholder="PPN" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input min="0" name="total_bayar[]" type="number" class="form-control" placeholder="Total Bayar" />
+                                                    <input min="0" readonly="readonly" id="total_bayar" name="total_bayar[]" type="number" class="form-control" placeholder="Total Bayar" />
                                                 </div>
                                             </div>
                                         </div>
@@ -228,6 +228,7 @@
             $('#bbb').append(b);
             setTimeout(function(){
                 $('.material-select').selectpicker('refresh');
+                initEvent();
             }, 200);
         }, 200);
     }
@@ -235,5 +236,30 @@
         e.preventDefault();
         $(el).parents('#aaa').remove();
     }
+    function initEvent() {
+        $('.material-select').on('changed.bs.select', function(e){
+            var el = $(this)
+            if($(this).val() != ''){
+                $.ajax({
+                    url : '{{ url('purchase-order/total-bayar') }}/'+$(this).val(),
+                    type : 'get',
+                    success : function(response, b){
+                        el.parents('#aaa').find('#tagihan').val(response);
+                        el.parents('#aaa').find('#ppn').val(
+                            Math.round(
+                                Number(response) * 0.1 * 100
+                                ) / 100
+                            );
+                        el.parents('#aaa').find('#total_bayar').val(
+                            Math.round(
+                                Number(response) * 1.1 * 100
+                                ) / 100
+                            );
+                    }
+                })
+            }
+        });   
+    }
+    initEvent();
 </script>
 @endpush

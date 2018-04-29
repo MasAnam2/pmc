@@ -100,4 +100,10 @@ class PurchaseOrderController extends Controller
         }
         return $total;
     }
+
+    public function totalBayar($id)
+    {
+        $po = PurchaseOrder::where('no_po', $id)->with('detail')->first();
+        return $po->total;
+    }
 }

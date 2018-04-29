@@ -73,6 +73,7 @@ Route::group(['middleware' => ['harus_login']], function(){
 		Route::put('/{no_po}', 'PurchaseOrderController@perbarui')->name('po.perbarui');
 		Route::get('/{no_po}/cetak', 'PurchaseOrderController@cetak')->name('po.cetak');
 		Route::get('/total-order/{no_po}', 'PurchaseOrderController@totalOrder');
+		Route::get('/total-bayar/{no_po}', 'PurchaseOrderController@totalBayar');
 	});
 
 	# MODUL PEMBAYARAN

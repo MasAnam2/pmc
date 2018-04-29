@@ -30,6 +30,7 @@ Left Sidebar -->
                     <span>Dasbor</span>
                 </a>
             </li>
+            @if(Auth::user()->hak_akses == 'Purchasing')
             <li @if(strpos(url()->current(), route('user')) !== false) class="active" @endif>
                 <a href="{{ route('user') }}">
                     <i class="material-icons">accessibility</i>
@@ -42,6 +43,8 @@ Left Sidebar -->
                     <span>Supplier</span>
                 </a>
             </li>
+            @endif
+            @if(Auth::user()->hak_akses == 'Purchasing')
             <li @if(strpos(url()->current(), route('material')) !== false) class="active" @endif>
                 <a href="{{ route('material') }}">
                     <i class="material-icons">extension</i>
@@ -54,24 +57,29 @@ Left Sidebar -->
                     <span>Penerimaan Material</span>
                 </a>
             </li>
+            @endif
+            @if(Auth::user()->hak_akses == 'Accounting')
             <li @if(strpos(url()->current(), route('perkiraan')) !== false) class="active" @endif>
                 <a href="{{ route('perkiraan') }}">
                     <i class="material-icons">flight_land</i>
                     <span>Perkiraan</span>
                 </a>
             </li>
+            @endif
             {{-- <li @if(strpos(url()->current(), route('jurnal')) !== false) class="active" @endif>
                 <a href="{{ route('jurnal') }}">
                     <i class="material-icons">gavel</i>
                     <span>Jurnal</span>
                 </a>
             </li> --}}
+            @if(Auth::user()->hak_akses == 'Purchasing')
             <li @if(strpos(url()->current(), route('po')) !== false) class="active" @endif>
                 <a href="{{ route('po') }}">
                     <i class="material-icons">receipt</i>
                     <span>Purchase Order</span>
                 </a>
             </li>
+            @endif
             <li @if(strpos(url()->current(), route('pembayaran')) !== false) class="active" @endif>
                 <a href="{{ route('pembayaran') }}">
                     <i class="material-icons">money</i>
