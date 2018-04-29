@@ -8,63 +8,116 @@ use App\PurchaseOrder;
 
 class PembayaranController extends Controller
 {
-    public function index()
-    {
-        return view('pembayaran.index', [
-            'data'      => Pembayaran::all(),
-            'po'        => PurchaseOrder::all(),
-        ]);
-    }
+	public function index()
+	{
+		return view('pembayaran.index', [
+			'data'      => Pembayaran::all(),
+			'po'        => PurchaseOrder::all(),
+		]);
+	}
 
-    public function tambah(Request $r)
-    {
-        $r->validate([
-            'no_sj'             => 'required', 
-            'tgl_pen'           => 'required', 
-            'jmlh_order'        => 'required|numeric', 
-            'jmlh_diterima'     => 'required|numeric', 
-            'no_po'             => 'required',
-        ]);
-        Pembayaran::create([
-            'no_sj'             => $r->no_sj,
-            'tgl_pen'           => $r->tgl_pen,
-            'jmlh_order'        => $r->jmlh_order,
-            'jmlh_diterima'     => $r->jmlh_diterima,
-            'no_po'             => $r->no_po,
-        ]);
-        return redirect()->route('pembayaran')->with('success', 'Penerimaan material baru berhasil dibuat');
-    }
+	public function tambah(Request $r)
+	{
+		$r->validate([
+			'no_po'             => 'required|array', 
+			'tagihan'           => 'required|array', 
+			'no_invoice'		=> 'required|array',
+			'no_fp'				=> 'required|array',
+			'tagihan'			=> 'required|array',
+			'ppn'				=> 'required|array',
+			'total_bayar'		=> 'required|array',
+			'tgl_pb'			=> 'required|date_format:Y-m-d',
+			'nm_peru'			=> 'required',
+			'bank'				=> 'required',
+			'almt_bank'			=> 'required',
+			'no_rek'			=> 'required',
+		]);
+		$pembayaran = Pembayaran::create([
+			'tgl_pb'		=> $r->tgl_pb,
+			'nm_peru'		=> $r->nm_peru,
+			'bank'			=> $r->bank,
+			'almt_bank'		=> $r->almt_bank,
+			'no_rek'		=> $r->no_rek,
+		]);
+		$i = 0;
+		foreach($r->no_po as $po){
+			$pembayaran->detail()->create([
+				'no_po'				=> $po,
+				'tagihan'			=> $r->tagihan[$i],
+				'no_invoice'		=> $r->no_invoice[$i],
+				'no_fp'				=> $r->no_fp[$i],
+				'tagihan'			=> $r->tagihan[$i],
+				'ppn'				=> $r->ppn[$i],
+				'total_bayar'		=> $r->total_bayar[$i],
+			]);
+			$i++;
+		}
+		return redirect()->route('pembayaran')->with('success', 'Pembayaran baru berhasil dibuat');
+	}
 
-    public function ubah($id)
-    {
-        $d = Pembayaran::find($id);
-        return view('pembayaran.ubah', [
-            'd' => $d,
-        ]);
-    }
+	public function ubah($id)
+	{
+		$d = Pembayaran::with('detail')->where('no_pb', $id)->first();
+		return view('pembayaran.ubah', [
+			'd' => $d,
+			'po'        => PurchaseOrder::all(),
+		]);
+	}
 
-    public function perbarui($id, Request $r)
-    {
-        $r->validate([
-            'no_sj'             => 'required', 
-            'tgl_pen'           => 'required', 
-            'jmlh_order'        => 'required|numeric', 
-            'jmlh_diterima'     => 'required|numeric', 
-            'no_po'             => 'required',
-        ]);
-        Pembayaran::find($id)->update([
-            'no_sj'             => $r->no_sj,
-            'tgl_pen'           => $r->tgl_pen,
-            'jmlh_order'        => $r->jmlh_order,
-            'jmlh_diterima'     => $r->jmlh_diterima,
-            'no_po'             => $r->no_po,
-        ]);
-        return redirect()->route('pembayaran')->with('success', 'Penerimaan material berhasil diperbarui');
-    }
+	public function perbarui($id, Request $r)
+	{
+		$r->validate([
+			'no_po'             => 'required|array', 
+			'tagihan'           => 'required|array', 
+			'no_invoice'		=> 'required|array',
+			'no_fp'				=> 'required|array',
+			'tagihan'			=> 'required|array',
+			'ppn'				=> 'required|array',
+			'total_bayar'		=> 'required|array',
+			'tgl_pb'			=> 'required|date_format:Y-m-d',
+			'nm_peru'			=> 'required',
+			'bank'				=> 'required',
+			'almt_bank'			=> 'required',
+			'no_rek'			=> 'required',
+		]);
+		$p = Pembayaran::find($id);
+		$p->update([
+			'tgl_pb'		=> $r->tgl_pb,
+			'nm_peru'		=> $r->nm_peru,
+			'bank'			=> $r->bank,
+			'almt_bank'		=> $r->almt_bank,
+			'no_rek'		=> $r->no_rek,
+		]);
+		$i = 0;
+		$p->detail()->delete();
+		foreach($r->no_po as $po){
+			$p->detail()->create([
+				'no_po'				=> $po,
+				'tagihan'			=> $r->tagihan[$i],
+				'no_invoice'		=> $r->no_invoice[$i],
+				'no_fp'				=> $r->no_fp[$i],
+				'tagihan'			=> $r->tagihan[$i],
+				'ppn'				=> $r->ppn[$i],
+				'total_bayar'		=> $r->total_bayar[$i],
+			]);
+			$i++;
+		}
+		return redirect()->route('pembayaran')->with('success', 'Pembayaran berhasil diperbarui');
+	}
 
-    public function hapus($id)
-    {
-        Pembayaran::find($id)->delete();
-        return redirect()->route('pembayaran')->with('success', 'Penerimaan material berhasil dihapus');
-    }
+	public function hapus($id)
+	{
+		$p = Pembayaran::find($id);
+		$p->detail()->delete();
+		$p->delete();
+		return redirect()->route('pembayaran')->with('success', 'Pembayaran berhasil dihapus');
+	}
+
+	public function cetak($id)
+	{
+		$d = Pembayaran::with('detail')->where('no_pb', $id)->first();
+		return view('pembayaran.print', [
+			'd'		=> $d
+		]);
+	}
 }

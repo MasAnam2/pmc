@@ -8,6 +8,7 @@ class Pembayaran extends Model
 {
 	protected $table = 'pembayaran';
 	protected $primaryKey = 'no_pb';
+	protected $appends = ['total_semua'];
 
     /**
      * The attributes that are mass assignable.
@@ -19,4 +20,16 @@ class Pembayaran extends Model
     ];
 
     public $timestamps = false;
+
+    public function detail()
+    {
+    	return $this->hasMany('App\DetailPembayaran', 'no_pb', 'no_pb');
+    }
+
+    public function getTotalSemuaAttribute()
+    {
+    	return $this->detail->sum(function($item){
+    		return $item['total_bayar'];
+    	});
+    }
 }

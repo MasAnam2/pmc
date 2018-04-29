@@ -83,7 +83,6 @@ Route::group(['middleware' => ['harus_login']], function(){
 		Route::get('/{no_pembayaran}/ubah', 'PembayaranController@ubah')->name('pembayaran.ubah');
 		Route::put('/{no_pembayaran}', 'PembayaranController@perbarui')->name('pembayaran.perbarui');
 		Route::get('/{no_pembayaran}/cetak', 'PembayaranController@cetak')->name('pembayaran.cetak');
-		Route::get('/total-order/{no_po}', 'PembayaranController@totalOrder');
 	});
 
 });
