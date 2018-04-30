@@ -8,7 +8,7 @@ class PurchaseOrder extends Model
 {
 	protected $table = 'po';
 	protected $primaryKey = 'no_po';
-    protected $appends = ['total'];
+    protected $appends = ['total', 'total_qty'];
 
     /**
      * The attributes that are mass assignable.
@@ -38,6 +38,15 @@ class PurchaseOrder extends Model
             $total_keseluruhan += $d->total;
         }
         return $total_keseluruhan;
+    }
+
+    public function getTotalQtyAttribute()
+    {
+        $t = 0;
+        foreach ($this->detail as $d) {
+            $t += $d->qty;
+        }
+        return $t;
     }
 
     public function scopeData($q)

@@ -137,7 +137,10 @@ return [
         'tgl_pen'               => 'Tanggal Penerimaan',
         'jmlh_order'                => 'Jumlah Order',
         'jmlh_diterima'             => 'Jumlah Diterima',
-        'no_po'             => 'No Purchase Order'
+        'no_po'             => 'No Purchase Order',
+        'kd_supplier'   => 'Supplier',
+        'almt_pm'   => 'Alamat permintaan',
+        'kd_material'   => 'Material',
     ],
 
 ];

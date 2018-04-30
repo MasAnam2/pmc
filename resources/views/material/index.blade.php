@@ -46,7 +46,7 @@
                                         <tr>
                                             <th>Kode Material</th>
                                             <th>Nama</th>
-                                            <th>Harga Satuan</th>
+                                            <th>Harga Satuan (Rp)</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -54,7 +54,7 @@
                                         <tr>
                                             <th>Kode Material</th>
                                             <th>Nama</th>
-                                            <th>Harga Satuan</th>
+                                            <th>Harga Satuan (Rp)</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -63,7 +63,7 @@
                                         <tr>
                                             <td>{{ $d->kd_material }}</td>
                                             <td>{{ $d->nm_material }}</td>
-                                            <td>{{ $d->hrg_stn }}</td>
+                                            <td align="right">{{ rupiah($d->hrg_stn) }}</td>
                                             <td>
                                                 <a href="{{ route('material.ubah', $d->kd_material) }}" class="btn btn-warning">Ubah</a>
                                                 <a onclick="hapus('{{ route('material.hapus', $d->kd_material) }}')" class="btn btn-danger">Hapus</a>

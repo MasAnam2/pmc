@@ -18,9 +18,9 @@ class BuatTabelDetailPembayaran extends Migration
             $table->integer('no_pb')->unsigned();
             $table->string('no_invoice');
             $table->string('no_fp');
-            $table->integer('tagihan');
-            $table->integer('ppn');
-            $table->integer('total_bayar');
+            $table->double('tagihan');
+            $table->double('ppn');
+            $table->double('total_bayar');
         });
     }
 

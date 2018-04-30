@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'harus_login' => \App\Http\Middleware\HarusLogin::class,
+        'hak_akses' => \App\Http\Middleware\HakAkses::class,
     ];
 }

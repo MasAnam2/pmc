@@ -30,7 +30,7 @@ Left Sidebar -->
                     <span>Dasbor</span>
                 </a>
             </li>
-            @if(Auth::user()->hak_akses == 'Purchasing')
+            @if(Auth::user()->hak_akses == 'Purchasing' || Auth::user()->hak_akses == 'Semua')
             <li @if(strpos(url()->current(), route('user')) !== false) class="active" @endif>
                 <a href="{{ route('user') }}">
                     <i class="material-icons">accessibility</i>
@@ -44,7 +44,15 @@ Left Sidebar -->
                 </a>
             </li>
             @endif
-            @if(Auth::user()->hak_akses == 'Purchasing')
+            @if(Auth::user()->hak_akses == 'Departemen' || Auth::user()->hak_akses == 'Semua')
+            <li @if(strpos(url()->current(), route('permintaan')) !== false) class="active" @endif>
+                <a href="{{ route('permintaan') }}">
+                    <i class="material-icons">class</i>
+                    <span>Permintaan Material</span>
+                </a>
+            </li>
+            @endif
+            @if(Auth::user()->hak_akses == 'Gudang' || Auth::user()->hak_akses == 'Semua')
             <li @if(strpos(url()->current(), route('material')) !== false) class="active" @endif>
                 <a href="{{ route('material') }}">
                     <i class="material-icons">extension</i>
@@ -58,7 +66,7 @@ Left Sidebar -->
                 </a>
             </li>
             @endif
-            @if(Auth::user()->hak_akses == 'Accounting')
+            @if(Auth::user()->hak_akses == 'Accounting' || Auth::user()->hak_akses == 'Semua')
             <li @if(strpos(url()->current(), route('perkiraan')) !== false) class="active" @endif>
                 <a href="{{ route('perkiraan') }}">
                     <i class="material-icons">flight_land</i>
@@ -66,13 +74,15 @@ Left Sidebar -->
                 </a>
             </li>
             @endif
-            {{-- <li @if(strpos(url()->current(), route('jurnal')) !== false) class="active" @endif>
+            @if(Auth::user()->hak_akses == 'Accounting' || Auth::user()->hak_akses == 'Semua')
+            <li @if(strpos(url()->current(), route('jurnal')) !== false) class="active" @endif>
                 <a href="{{ route('jurnal') }}">
                     <i class="material-icons">gavel</i>
                     <span>Jurnal</span>
                 </a>
-            </li> --}}
-            @if(Auth::user()->hak_akses == 'Purchasing')
+            </li>
+            @endif
+            @if(Auth::user()->hak_akses == 'Purchasing' || Auth::user()->hak_akses == 'Semua')
             <li @if(strpos(url()->current(), route('po')) !== false) class="active" @endif>
                 <a href="{{ route('po') }}">
                     <i class="material-icons">receipt</i>
@@ -80,12 +90,28 @@ Left Sidebar -->
                 </a>
             </li>
             @endif
+            @if(Auth::user()->hak_akses == 'Accounting' || Auth::user()->hak_akses == 'Semua')
             <li @if(strpos(url()->current(), route('pembayaran')) !== false) class="active" @endif>
                 <a href="{{ route('pembayaran') }}">
                     <i class="material-icons">money</i>
                     <span>Pembayaran</span>
                 </a>
             </li>
+            @endif
+            @if(Auth::user()->hak_akses == 'Direktur' || Auth::user()->hak_akses == 'Semua')
+            <li @if(strpos(url()->current(), route('lap_pembelian')) !== false) class="active" @endif>
+                <a href="{{ route('lap_pembelian') }}">
+                    <i class="material-icons">save</i>
+                    <span>Laporan Pembelian</span>
+                </a>
+            </li>
+            <li @if(strpos(url()->current(), route('lap_pembayaran')) !== false) class="active" @endif>
+                <a href="{{ route('lap_pembayaran') }}">
+                    <i class="material-icons">save</i>
+                    <span>Laporan Pembayaran</span>
+                </a>
+            </li>
+            @endif
         </ul>
     </div>
     <!-- #Menu -->
@@ -95,7 +121,7 @@ Left Sidebar -->
             &copy; {{ date('Y') }} <a href="javascript:void(0);">{{ config('app.name') }}</a>.
         </div>
         <div class="version">
-            <b>Version: </b> 1.0.4
+            <b>Version: </b> {{ config('app.version') }}
         </div>
     </div>
     <!-- #Footer -->

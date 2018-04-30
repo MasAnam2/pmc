@@ -25,28 +25,27 @@ class PerkiraanController extends Controller
         return redirect()->route('perkiraan')->with('success', 'Perkiraan baru berhasil dibuat');
     }
 
-    public function ubah($id)
+    public function ubah(Perkiraan $perkiraan)
     {
-        $d = Perkiraan::find($id);
         return view('perkiraan.ubah', [
-            'd' => $d,
+            'd' => $perkiraan,
         ]);
     }
 
-    public function perbarui($id, Request $r)
+    public function perbarui(Perkiraan $perkiraan, Request $r)
     {
         $r->validate([
             'nm_perk'   => 'required',
         ]);
-        Perkiraan::find($id)->update([
+        $perkiraan->update([
             'nm_perk'   => $r->nm_perk,
         ]);
         return redirect()->route('perkiraan')->with('success', 'Perkiraan berhasil diperbarui');
     }
 
-    public function hapus($id)
+    public function hapus(Perkiraan $perkiraan)
     {
-        Perkiraan::find($id)->delete();
+        $perkiraan->delete();
         return redirect()->route('perkiraan')->with('success', 'Perkiraan berhasil dihapus');
     }
 }

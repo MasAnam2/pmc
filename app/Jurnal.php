@@ -18,5 +18,15 @@ class Jurnal extends Model
        'tgl_jurnal', 'debet', 'kredit', 'saldo', 'no_pb', 'no_perkiraan'
     ];
 
-    public $timestamps = false;//
+    public $timestamps = false;
+
+    public function perkiraan()
+    {
+        return $this->belongsTo('App\Perkiraan', 'no_perkiraan', 'no_perk');
+    }
+
+    public function pembayaran()
+    {
+        return $this->belongsTo('App\Pembayaran', 'no_pb', 'no_pb');
+    }
 }
