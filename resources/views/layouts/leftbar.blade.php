@@ -24,7 +24,11 @@ Left Sidebar -->
     <div class="menu">
         <ul class="list">
             <li class="header">MAIN NAVIGATION</li>
-            <li @if(strpos(url()->current(), route('home')) !== false) class="active" @endif>
+            <li @if(
+                url()->current() == route('home') || 
+                url()->current() == route('dasbor') || 
+                url()->current() == route('beranda')
+                ) class="active" @endif>
                 <a href="{{ route('home') }}">
                     <i class="material-icons">home</i>
                     <span>Dasbor</span>

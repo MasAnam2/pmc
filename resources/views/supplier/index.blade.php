@@ -74,8 +74,8 @@
                                             <td>{{ $d->fax }}</td>
                                             <td>{{ $d->email }}</td>
                                             <td>
-                                                <a href="{{ route('supplier.ubah', $d->kd_supplier) }}" class="btn btn-warning">Ubah</a>
-                                                <a onclick="hapus('{{ route('supplier.hapus', $d->kd_supplier) }}')" class="btn btn-danger">Hapus</a>
+                                                @include('edit_button', ['link'=>route('supplier.ubah', $d->kd_supplier)])
+                                                @include('delete_button', ['link'=>route('supplier.hapus', $d->kd_supplier)])
                                             </td>
                                         </tr>
                                         @endforeach
@@ -134,7 +134,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                            @include('save_button')
                                         </div>
                                     </div>
                                 </form>

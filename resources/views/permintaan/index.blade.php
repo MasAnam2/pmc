@@ -184,10 +184,10 @@
                                             <hr>
                                         </div>
                                         <div class="col-md-12">
-                                            <a onclick="tambah()" class="btn btn-danger">Tambah</a>
+                                            @include('add_button')
                                         </div>
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                            @include('save_button')
                                         </div>
                                     </div>
                                 </form>

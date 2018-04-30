@@ -30,39 +30,39 @@
                             @method('put')
                             <div class="row">
                                 <div class="col-md-4">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">extension</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input 
-                                                    @if($errors->has('nm_material'))
-                                                    value="{{ old('nm_material') }}"
-                                                    @else
-                                                    value="{{ $d->nm_material }}"
-                                                    @endif
-                                                    required="required" name="nm_material" type="text" class="form-control" placeholder="Nama Material">
-                                                </div>
-                                            </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">extension</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input 
+                                            @if($errors->has('nm_material'))
+                                            value="{{ old('nm_material') }}"
+                                            @else
+                                            value="{{ $d->nm_material }}"
+                                            @endif
+                                            required="required" name="nm_material" type="text" class="form-control" placeholder="Nama Material">
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">attach_money</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input 
-                                                    @if($errors->has('hrg_stn'))
-                                                    value="{{ old('hrg_stn') }}"
-                                                    @else
-                                                    value="{{ $d->hrg_stn }}"
-                                                    @endif
-                                                    required="required" name="hrg_stn" type="number" class="form-control" placeholder="Harga Satuan">
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">attach_money</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input 
+                                            @if($errors->has('hrg_stn'))
+                                            value="{{ old('hrg_stn') }}"
+                                            @else
+                                            value="{{ $d->hrg_stn }}"
+                                            @endif
+                                            required="required" name="hrg_stn" type="number" class="form-control" placeholder="Harga Satuan">
                                         </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary">PERBARUI</button>
+                                    @include('update_button')
                                 </div>
                             </div>
                         </form>

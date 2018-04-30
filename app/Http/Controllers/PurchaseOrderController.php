@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 
 class PurchaseOrderController extends Controller
 {
-    public function index()
+    public function index(Request $r)
     {
         return view('po.index', [
-            'data'      => PurchaseOrder::data(),
+            'data'      => PurchaseOrder::data($r),
             'supplier'  => Supplier::all(),
             'material'  => Material::all(),
         ]);
@@ -43,6 +43,9 @@ class PurchaseOrderController extends Controller
 
     public function ubah($id)
     {
+        if(!PurchaseOrder::where('no_po', $id)->exists()){
+            abort(404);
+        }
         $d = PurchaseOrder::with('detail')->where('no_po', $id)->first();
         return view('po.ubah', [
             'd'         => $d,
@@ -53,6 +56,9 @@ class PurchaseOrderController extends Controller
 
     public function perbarui($id, Request $r)
     {
+        if(!PurchaseOrder::where('no_po', $id)->exists()){
+            abort(404);
+        }
         $r->validate([
             'supplier'      => 'required',
             'material'      => 'required|array|min:1',
@@ -77,6 +83,9 @@ class PurchaseOrderController extends Controller
 
     public function hapus($id)
     {
+        if(!PurchaseOrder::where('no_po', $id)->exists()){
+            abort(404);
+        }
         $po = PurchaseOrder::find($id);
         $po->detail()->delete();
         $po->delete();
@@ -85,6 +94,9 @@ class PurchaseOrderController extends Controller
 
     public function cetak($id)
     {
+        if(!PurchaseOrder::where('no_po', $id)->exists()){
+            abort(404);
+        }
         $d = PurchaseOrder::with('detail')->where('no_po', $id)->first();
         return view('po.print', [
             'd' => $d,
@@ -93,6 +105,9 @@ class PurchaseOrderController extends Controller
 
     public function totalOrder($id)
     {
+        if(!PurchaseOrder::where('no_po', $id)->exists()){
+            abort(404);
+        }
         $po = PurchaseOrder::where('no_po', $id)->with('detail')->first();
         $total = 0;
         foreach ($po->detail as $d) {
@@ -103,6 +118,9 @@ class PurchaseOrderController extends Controller
 
     public function totalBayar($id)
     {
+        if(!PurchaseOrder::where('no_po', $id)->exists()){
+            abort(404);
+        }
         $po = PurchaseOrder::where('no_po', $id)->with('detail')->first();
         return $po->total;
     }

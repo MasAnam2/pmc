@@ -65,8 +65,8 @@
                                             <td>{{ $d->nm_material }}</td>
                                             <td align="right">{{ rupiah($d->hrg_stn) }}</td>
                                             <td>
-                                                <a href="{{ route('material.ubah', $d->kd_material) }}" class="btn btn-warning">Ubah</a>
-                                                <a onclick="hapus('{{ route('material.hapus', $d->kd_material) }}')" class="btn btn-danger">Hapus</a>
+                                                @include('edit_button', ['link'=>route('material.ubah', $d->kd_material)])
+                                                @include('delete_button', ['link'=>route('material.hapus', $d->kd_material)])
                                             </td>
                                         </tr>
                                         @endforeach

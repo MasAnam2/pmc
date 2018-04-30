@@ -62,8 +62,8 @@
                                             <td>{{ $d->no_perk }}</td>
                                             <td>{{ $d->nm_perk }}</td>
                                             <td>
-                                                <a href="{{ route('perkiraan.ubah', $d->no_perk) }}" class="btn btn-warning">Ubah</a>
-                                                <a onclick="hapus('{{ route('perkiraan.hapus', $d->no_perk) }}')" class="btn btn-danger">Hapus</a>
+                                                @include('edit_button', ['link'=>route('perkiraan.ubah', $d->no_perk)])
+                                                @include('delete_button', ['link'=>route('perkiraan.hapus', $d->no_perk)])
                                             </td>
                                         </tr>
                                         @endforeach
@@ -85,7 +85,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                            @include('save_button')
                                         </div>
                                     </div>
                                 </form>

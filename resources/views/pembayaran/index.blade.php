@@ -16,6 +16,7 @@
                 </ol>
             </div>
             @include('alert')
+            @include('filter_tanggal', ['judul' => 'TAMPILKAN PEMBAYARAN', ])
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
@@ -77,9 +78,9 @@
                                             <td>{{ $d->no_rek }}</td>
                                             <td>{{ rupiah($d->total_semua) }}</td>
                                             <td>
-                                                <a href="{{ route('pembayaran.ubah', $d->no_pb) }}" class="btn btn-warning">Ubah</a>
-                                                <a onclick="hapus('{{ route('pembayaran.hapus', $d->no_pb) }}')" class="btn btn-danger">Hapus</a>
-                                                <a target="_blank" href="{{ route('pembayaran.cetak', $d->no_pb) }}" class="btn btn-default">Cetak</a>
+                                                @include('edit_button', ['link'=>route('pembayaran.ubah', $d->no_pb)])
+                                                @include('delete_button', ['link'=>route('pembayaran.hapus', $d->no_pb)])
+                                                @include('print_button', ['link'=>route('pembayaran.cetak', $d->no_pb)])
                                             </td>
                                         </tr>
                                         @endforeach
@@ -199,10 +200,10 @@
                                             <hr>
                                         </div>
                                         <div class="col-md-12">
-                                            <a onclick="tambah()" class="btn btn-danger">Tambah</a>
+                                            @include('add_button')
                                         </div>
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                            @include('save_button')
                                         </div>
                                     </div>
                                 </form>
@@ -224,7 +225,7 @@
         $('.material-select').selectpicker('destroy');
         setTimeout(function(){
             var aaa = document.getElementById('aaa').outerHTML;
-            var b = $(aaa).append('<div class="col-md-12"><button class="btn btn-warning" onclick="hapusD(this, event)">Hapus</button></div>');
+            var b = $(aaa).append('@include('hapus_button')');
             $('#bbb').append(b);
             setTimeout(function(){
                 $('.material-select').selectpicker('refresh');
@@ -261,5 +262,17 @@
         });   
     }
     initEvent();
+    function tampilkan() {
+        if($('#tgl_mulai').val() == ''){
+            alert('Tanggal mulai tidak boleh kosong')
+            return
+        }
+        if($('#tgl_sampai').val() == ''){
+            alert('Tanggal sampai tidak boleh kosong')
+            return
+        }
+        window.location = '{{ url('pembayaran') }}'+'?tgl_mulai='+$('#tgl_mulai').val()+'&tgl_sampai='+$('#tgl_sampai').val();
+    }
 </script>
 @endpush
+@include('load_datepicker')

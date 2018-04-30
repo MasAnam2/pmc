@@ -35,15 +35,14 @@ class PenerimaanMaterialController extends Controller
         return redirect()->route('p_material')->with('success', 'Penerimaan material baru berhasil dibuat');
     }
 
-    public function ubah($id)
+    public function ubah(PenerimaanMaterial $pm)
     {
-        $d = PenerimaanMaterial::find($id);
         return view('p_material.ubah', [
-            'd' => $d,
+            'd' => $pm,
         ]);
     }
 
-    public function perbarui($id, Request $r)
+    public function perbarui(PenerimaanMaterial $pm, Request $r)
     {
         $r->validate([
             'no_sj'             => 'required', 
@@ -52,7 +51,7 @@ class PenerimaanMaterialController extends Controller
             'jmlh_diterima'     => 'required|numeric', 
             'no_po'             => 'required',
         ]);
-        PenerimaanMaterial::find($id)->update([
+        $pm->update([
             'no_sj'             => $r->no_sj,
             'tgl_pen'           => $r->tgl_pen,
             'jmlh_order'        => $r->jmlh_order,
@@ -62,9 +61,9 @@ class PenerimaanMaterialController extends Controller
         return redirect()->route('p_material')->with('success', 'Penerimaan material berhasil diperbarui');
     }
 
-    public function hapus($id)
+    public function hapus(PenerimaanMaterial $pm)
     {
-        PenerimaanMaterial::find($id)->delete();
+        $pm->delete();
         return redirect()->route('p_material')->with('success', 'Penerimaan material berhasil dihapus');
     }
 }

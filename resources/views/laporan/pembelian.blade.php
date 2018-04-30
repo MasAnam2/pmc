@@ -40,7 +40,15 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <button onclick="cetak()" class="btn btn-default">CETAK</button>
+                                @if(config('app.button_type') == 'text')
+                                <button onclick="cetak()" class="btn btn-default {{ config('app.button_size') == 'default' ? '' :  'btn-'.config('app.button_size')}}">
+                                    {{ config('app.print_button') }}
+                                </button>
+                                @else
+                                <button onclick="cetak()" class="btn btn-default {{ config('app.button_size') == 'default' ? '' :  'btn-'.config('app.button_size')}}">
+                                    <i class="material-icons">{{ config('app.print_button') }}</i>
+                                </button>
+                                @endif
                             </div>
                         </div>
                     </div>

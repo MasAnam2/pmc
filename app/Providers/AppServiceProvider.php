@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Schema;
+use View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        View::share('_skin', \App\Pengaturan::find('skin')->value);
     }
 
     /**

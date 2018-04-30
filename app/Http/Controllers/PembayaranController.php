@@ -8,10 +8,16 @@ use App\PurchaseOrder;
 
 class PembayaranController extends Controller
 {
-	public function index()
+	public function index(Request $r)
 	{
+		$data = [];
+		if($r->query('tgl_mulai') && $r->query('tgl_sampai')){
+			$data = Pembayaran::whereBetween('tgl_pb', [$r->query('tgl_mulai'), $r->query('tgl_sampai')])
+			->orderBy('tgl_pb')
+			->get();
+		}
 		return view('pembayaran.index', [
-			'data'      => Pembayaran::all(),
+			'data'      => $data,
 			'po'        => PurchaseOrder::all(),
 		]);
 	}
@@ -57,6 +63,9 @@ class PembayaranController extends Controller
 
 	public function ubah($id)
 	{
+		if(!Pembayaran::where('no_pb', $id)->exists()){
+			abort(404);
+		}
 		$d = Pembayaran::with('detail')->where('no_pb', $id)->first();
 		return view('pembayaran.ubah', [
 			'd' => $d,
@@ -66,6 +75,9 @@ class PembayaranController extends Controller
 
 	public function perbarui($id, Request $r)
 	{
+		if(!Pembayaran::where('no_pb', $id)->exists()){
+			abort(404);
+		}
 		$r->validate([
 			'no_po'             => 'required|array', 
 			'tagihan'           => 'required|array', 
@@ -107,6 +119,9 @@ class PembayaranController extends Controller
 
 	public function hapus($id)
 	{
+		if(!Pembayaran::where('no_pb', $id)->exists()){
+			abort(404);
+		}
 		$p = Pembayaran::find($id);
 		$p->detail()->delete();
 		$p->delete();
@@ -115,6 +130,9 @@ class PembayaranController extends Controller
 
 	public function cetak($id)
 	{
+		if(!Pembayaran::where('no_pb', $id)->exists()){
+			abort(404);
+		}
 		$d = Pembayaran::with('detail')->where('no_pb', $id)->first();
 		return view('pembayaran.print', [
 			'd'		=> $d

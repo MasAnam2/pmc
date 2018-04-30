@@ -2,13 +2,13 @@
 
 Auth::routes();
 
-Route::redirect('/', 'user');
+Route::get('/', 'HomeController@index')->name('beranda');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/dasbor', 'HomeController@index')->name('dasbor');
+
 Route::group(['middleware' => ['harus_login']], function(){
-	
-	// Route::redirect('/', '/user');
 
 	# MODUL USER
 	Route::middleware(['hak_akses:Purchasing,Semua'])->prefix('user')->group(function(){
@@ -32,18 +32,18 @@ Route::group(['middleware' => ['harus_login']], function(){
 	Route::middleware(['hak_akses:Gudang,Semua'])->prefix('material')->group(function(){
 		Route::get('/', 'MaterialController@index')->name('material');
 		Route::post('/', 'MaterialController@tambah')->name('material.tambah');
-		Route::delete('/{kd_material}', 'MaterialController@hapus')->name('material.hapus');
-		Route::get('/{kd_material}/ubah', 'MaterialController@ubah')->name('material.ubah');
-		Route::put('/{kd_material}', 'MaterialController@perbarui')->name('material.perbarui');
+		Route::delete('/{material}', 'MaterialController@hapus')->name('material.hapus');
+		Route::get('/{material}/ubah', 'MaterialController@ubah')->name('material.ubah');
+		Route::put('/{material}', 'MaterialController@perbarui')->name('material.perbarui');
 	});
 
 	# MODUL PENERIMAAN MATERIAL
 	Route::middleware(['hak_akses:Gudang,Semua'])->prefix('penerimaan-material')->group(function(){
 		Route::get('/', 'PenerimaanMaterialController@index')->name('p_material');
 		Route::post('/', 'PenerimaanMaterialController@tambah')->name('p_material.tambah');
-		Route::delete('/{kd_p_material}', 'PenerimaanMaterialController@hapus')->name('p_material.hapus');
-		Route::get('/{kd_p_material}/ubah', 'PenerimaanMaterialController@ubah')->name('p_material.ubah');
-		Route::put('/{kd_p_material}', 'PenerimaanMaterialController@perbarui')->name('p_material.perbarui');
+		Route::delete('/{pm}', 'PenerimaanMaterialController@hapus')->name('p_material.hapus');
+		Route::get('/{pm}/ubah', 'PenerimaanMaterialController@ubah')->name('p_material.ubah');
+		Route::put('/{pm}', 'PenerimaanMaterialController@perbarui')->name('p_material.perbarui');
 	});
 
 	# MODUL PERMINTAAN MATERIAL
@@ -104,6 +104,9 @@ Route::group(['middleware' => ['harus_login']], function(){
 		Route::get('/pembayaran/cetak', 'LaporanController@pembayaranCetak')->name('lap_pembayaran.cetak');
 	});
 
+	# MODUL PENGATURAN
+	Route::post('/pengaturan/set-skin', 'PengaturanController@setSkin')->name('pengaturan.set_skin');
+
 });
 
-Route::get('/generate-user', 'DummyController@generateUser');
+// Route::get('/generate-user', 'DummyController@generateUser');

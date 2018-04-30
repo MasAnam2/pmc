@@ -16,6 +16,7 @@
                 </ol>
             </div>
             @include('alert')
+            @include('filter_tanggal', ['judul' => 'TAMPILKAN PURCHASE ORDER', ])
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
@@ -106,7 +107,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row" id="mmm">
+                                    <div class="row" id="aaa">
                                         <div class="col-md-4">
                                             <select required="required" name="material[]" class="form-control show-tick material-select">
                                                 <option value="">-- Pilih Material --</option>
@@ -127,14 +128,16 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12" id="tambahan"></div>
+                                        <div class="col-md-12" id="bbb">
+
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <a onclick="tambah()" class="btn btn-danger">Tambah</a>
+                                            @include('add_button')
                                         </div>
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                            @include('save_button')
                                         </div>
                                     </div>
                                 </form>
@@ -155,14 +158,31 @@
     function tambah() {
         $('.material-select').selectpicker('destroy');
         setTimeout(function(){
-            var mmm = document.getElementById('mmm');
-            $('#tambahan').append(mmm.outerHTML);
+            var aaa = document.getElementById('aaa').outerHTML;
+            var b = $(aaa).append('@include('hapus_button')');
+            $('#bbb').append(b);
             setTimeout(function(){
                 $('.material-select').selectpicker('refresh');
             }, 200);
         }, 200);
     }
+    function hapusD(el, e) {
+        e.preventDefault();
+        $(el).parents('#aaa').remove();
+    }
+    function tampilkan() {
+        if($('#tgl_mulai').val() == ''){
+            alert('Tanggal mulai tidak boleh kosong')
+            return
+        }
+        if($('#tgl_sampai').val() == ''){
+            alert('Tanggal sampai tidak boleh kosong')
+            return
+        }
+        window.location = '{{ url('purchase-order') }}'+'?tgl_mulai='+$('#tgl_mulai').val()+'&tgl_sampai='+$('#tgl_sampai').val();
+    }
 </script>
 @endpush
 
 @include('load_bs_select')
+@include('load_datepicker')

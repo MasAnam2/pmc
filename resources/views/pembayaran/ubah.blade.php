@@ -144,6 +144,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if(!$loop->first)
+                                @include('hapus_button')
+                                @endif
                             </div>
                             @endforeach
                             <div class="row">
@@ -159,7 +162,7 @@
                                     <a onclick="tambah()" class="btn btn-danger">Tambah</a>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary">PERBARUI</button>
+                                    @include('update_button')
                                 </div>
                             </div>
                         </form>
@@ -178,7 +181,7 @@
         $('.material-select').selectpicker('destroy');
         setTimeout(function(){
             var aaa = document.getElementById('aaa').outerHTML;
-            var b = $(aaa).append('<div class="col-md-12"><button class="btn btn-warning" onclick="hapusD(this, event)">Hapus</button></div>');
+            var b = $(aaa).append('@include('hapus_button')');
             $('#bbb').append(b);
             setTimeout(function(){
                 $('.material-select').selectpicker('refresh');

@@ -15,6 +15,15 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
     'version'   => env('APP_VERSION', '1.0.0'),
+    'button_type' => env('BUTTON_TYPE', 'text'),
+    'button_size' => env('BUTTON_SIZE', 'default'),
+    'delete_button' => env('DELETE_BUTTON', 'HAPUS'),
+    'edit_button' => env('EDIT_BUTTON', 'UBAH'),
+    'print_button' => env('PRINT_BUTTON', 'CETAK'),
+    'save_button' => env('SAVE_BUTTON', 'SIMPAN'),
+    'update_button' => env('UPDATE_BUTTON', 'PERBARUI'),
+    'add_button' => env('ADD_BUTTON', 'TAMBAH'),
+    'see_button' => env('SEE_BUTTON', 'TAMPILKAN'),
 
     /*
     |--------------------------------------------------------------------------

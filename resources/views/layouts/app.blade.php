@@ -25,7 +25,33 @@
     @yield('content')
 
     @include('layouts.js')
-    
+    <script>
+        function setSkin(){
+            var skin = window.localStorage.getItem('skin') || 'red';
+            $('body').attr('class', '').addClass('theme-'+skin);
+            $('[data-theme="'+skin+'"]').addClass('active');
+        }
+        setSkin();
+        $('.demo-choose-skin>li').on('click', function(e){
+            var skin = $(this).data('theme');
+            // $.ajax({
+            //     url : '{{ route('pengaturan.set_skin') }}',
+            //     type : 'POST',
+            //     data : {
+            //         skin : skin,
+            //         _token : '{{ csrf_token() }}'
+            //     },
+            //     success : function(res){
+            //     }
+            // })
+            window.localStorage.setItem('skin', skin)
+        });
+        $(document).ready(function(e){
+            setTimeout(function(){
+                setSkinListHeightAndScroll();
+            }, 2000);
+        });
+    </script>
 </body>
 
 </html>

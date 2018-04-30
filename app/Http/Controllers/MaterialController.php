@@ -27,30 +27,29 @@ class MaterialController extends Controller
 		return redirect()->route('material')->with('success', 'Material baru berhasil dibuat');
 	}
 
-	public function ubah($id)
+	public function ubah(Material $material)
 	{
-		$d = Material::find($id);
 		return view('material.ubah', [
-			'd'	=> $d,
+			'd'	=> $material,
 		]);
 	}
 
-	public function perbarui($id, Request $r)
+	public function perbarui(Material $material, Request $r)
 	{
 		$r->validate([
 			'nm_material'	=> 'required',
 			'hrg_stn'		=> 'required'
 		]);
-		Material::find($id)->update([
+		$material->update([
 			'nm_material'   => $r->nm_material,
 			'hrg_stn'       => $r->hrg_stn,
 		]);
 		return redirect()->route('material')->with('success', 'Material berhasil diperbarui');
 	}
 
-	public function hapus($id)
+	public function hapus(Material $material)
 	{
-		Material::find($id)->delete();
+		$material->delete();
 		return redirect()->route('material')->with('success', 'Material berhasil dihapus');
 	}
 }

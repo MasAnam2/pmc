@@ -69,13 +69,13 @@
                                         <tr>
                                             <td>{{ $d->no_pen }}</td>
                                             <td>{{ $d->no_sj }}</td>
-                                            <td>{{ $d->tgl_pen }}</td>
+                                            <td>{{ tglIndo($d->tgl_pen) }}</td>
                                             <td>{{ $d->jmlh_order }}</td>
                                             <td>{{ $d->jmlh_diterima }}</td>
                                             <td>{{ $d->no_po }}</td>
                                             <td>
-                                                <a href="{{ route('p_material.ubah', $d->no_pen) }}" class="btn btn-warning">Ubah</a>
-                                                <a onclick="hapus('{{ route('p_material.hapus', $d->no_pen) }}')" class="btn btn-danger">Hapus</a>
+                                                @include('edit_button', ['link'=>route('p_material.ubah', $d->no_pen)])
+                                                @include('delete_button', ['link'=>route('p_material.hapus', $d->no_pen)])
                                             </td>
                                         </tr>
                                         @endforeach
@@ -143,7 +143,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                            @include('save_button')
                                         </div>
                                     </div>
                                 </form>

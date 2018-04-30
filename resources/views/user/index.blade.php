@@ -65,8 +65,8 @@
                                             <td>{{ $d->username }}</td>
                                             <td>{{ $d->hak_akses }}</td>
                                             <td>
-                                                <a href="{{ route('user.ubah', $d->id_user) }}" class="btn btn-warning">Ubah</a>
-                                                <a onclick="hapus('{{ route('user.hapus', $d->id_user) }}')" class="btn btn-danger">Hapus</a>
+                                                @include('edit_button', ['link'=>route('user.ubah', $d->id_user)])
+                                                @include('delete_button', ['link'=>route('user.hapus', $d->id_user)])
                                             </td>
                                         </tr>
                                         @endforeach
@@ -119,7 +119,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                            @include('save_button')
                                         </div>
                                     </div>
                                 </form>

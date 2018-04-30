@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             @foreach ($d->detail as $p)
-                            <div class="row" id="mmm">
+                            <div class="row" id="aaa">
                                 <div class="col-md-4">
                                     <select required="required" name="material[]" class="form-control show-tick material-select">
                                         <option value="">-- Pilih Material --</option>
@@ -74,17 +74,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if(!$loop->first)
+                                @include('hapus_button')
+                                @endif
                             </div>
                             @endforeach
                             <div class="row">
-                                <div class="col-md-12" id="tambahan"></div>
+                                <div class="col-md-12" id="bbb"></div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <a onclick="tambah()" class="btn btn-danger">Tambah</a>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary">PERBARUI</button>
+                                    @include('update_button')
                                 </div>
                             </div>
                         </form>
@@ -101,12 +104,17 @@
     function tambah() {
         $('.material-select').selectpicker('destroy');
         setTimeout(function(){
-            var mmm = document.getElementById('mmm');
-            $('#tambahan').append(mmm.outerHTML);
+            var aaa = document.getElementById('aaa').outerHTML;
+            var b = $(aaa).append('@include('hapus_button')');
+            $('#bbb').append(b);
             setTimeout(function(){
                 $('.material-select').selectpicker('refresh');
             }, 200);
         }, 200);
+    }
+    function hapusD(el, e) {
+        e.preventDefault();
+        $(el).parents('#aaa').remove();
     }
 </script>
 @endpush

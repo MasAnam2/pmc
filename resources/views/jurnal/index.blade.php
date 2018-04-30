@@ -77,8 +77,8 @@
                                             <td>{{ $d->no_pb }}</td>
                                             <td>{{ $d->perkiraan->nm_perk }}</td>
                                             <td>
-                                                <a href="{{ route('jurnal.ubah', $d->no_jurnal) }}" class="btn btn-warning">Ubah</a>
-                                                <a onclick="hapus('{{ route('jurnal.hapus', $d->no_jurnal) }}')" class="btn btn-danger">Hapus</a>
+                                                @include('edit_button', ['link'=>route('jurnal.ubah', $d->no_jurnal)])
+                                                @include('delete_button', ['link'=>route('jurnal.hapus', $d->no_jurnal)])
                                             </td>
                                         </tr>
                                         @endforeach
@@ -151,7 +151,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                            @include('save_button')
                                         </div>
                                     </div>
                                 </form>

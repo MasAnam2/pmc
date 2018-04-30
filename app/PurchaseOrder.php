@@ -49,8 +49,14 @@ class PurchaseOrder extends Model
         return $t;
     }
 
-    public function scopeData($q)
+    public function scopeData($q, $r)
     {
-        return $q->with('detail.material', 'detail')->get();
+        if($r->query('tgl_mulai') && $r->query('tgl_sampai')){
+            return $q->with('detail.material')
+            ->whereBetween('tgl_po', [$r->query('tgl_mulai'), $r->query('tgl_sampai')])
+            ->orderBy('tgl_po')
+            ->get();
+        }
+        return [];
     }
 }

@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary">PERBARUI</button>
+                                    @include('update_button')
                                 </div>
                             </div>
                         </form>
