@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        View::share('_skin', \App\Pengaturan::find('skin')->value);
+        // View::share('_skin', \App\Pengaturan::find('skin')->value);
     }
 
     /**
