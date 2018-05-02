@@ -82,7 +82,11 @@ Route::group(['middleware' => ['harus_login']], function(){
 		Route::get('/{no_po}/ubah', 'PurchaseOrderController@ubah')->name('po.ubah');
 		Route::put('/{no_po}', 'PurchaseOrderController@perbarui')->name('po.perbarui');
 		Route::get('/{no_po}/cetak', 'PurchaseOrderController@cetak')->name('po.cetak');
+	});
+	Route::middleware(['hak_akses:Semua,Gudang'])->prefix('purchase-order')->group(function(){
 		Route::get('/total-order/{no_po}', 'PurchaseOrderController@totalOrder');
+	});
+	Route::middleware(['hak_akses:Semua,Accounting'])->prefix('purchase-order')->group(function(){
 		Route::get('/total-bayar/{no_po}', 'PurchaseOrderController@totalBayar');
 	});
 
